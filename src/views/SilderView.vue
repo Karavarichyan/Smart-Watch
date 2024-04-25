@@ -45,8 +45,6 @@ const nextSlide = () => {
 };
 </script> -->
 
-
-
 <!-- 
 <template>
   <div class="full-screen bg-slate-950 flex items-center justify-center">
@@ -137,46 +135,66 @@ setInterval(updateTime, 1000);
 .slide-leave-to {
   opacity: 0;
 }
-v-touch:swipe =" swipeHandler "
+
 </style> -->
 <template>
-  <div class="full-screen bg-slate-950 flex items-center justify-center">
+  <!-- <div class="full-screen bg-slate-950 flex snap-x snap-mandatory overflow-x-auto overflow-y-hidden items-center justify-center">
     <div
-      class="swiper-container overflow-hidden cursor-pointer flex items-center justify-center"
+      class="swiper-container overflow-hidden shrink-0 cursor-pointer flex items-center justify-center"
       @mousedown="onMouseDown"
+      @touchmove.prevent="onTouchMove"
     >
       <transition name="slide" mode="out-in">
         <div
+          v-touch:swipe="swipeHandler"
           class="swiper-wrapper flex"
           :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
           :key="currentSlide"
-        > 
+        >
           <div
             v-for="(slide, index) in slides"
             :key="index"
-            class="swiper-slide flex flex-col items-center justify-center w-full"
+            class="swiper-slide shrink-0 flex flex-col items-center justify-center w-full"
           >
             <component :is="slide" />
           </div>
         </div>
       </transition>
     </div>
+  </div> -->
+  <div class="flex h-screen w-full snap-x snap-mandatory overflow-hidden bg-slate-800" id="container" 
+  @mousedown="onMouseDown" 
+  @touchstart="onTouchStart">
+  <div class="h-screen w-screen shrink-0 snap-center bg-slate-800">
+    <transition name="slide" mode="out-in">
+      <div
+        class="swiper-wrapper flex"
+        :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+        :key="currentSlide"
+      >
+        <div
+          v-for="(slide, index) in slides"
+          :key="index"
+          class="swiper-slide h-screen w-screen shrink-0 snap-center bg-slate-800">
+          <component :is="slide" />
+        </div>
+      </div>
+    </transition>
   </div>
+</div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
 import StopwatchSlide from "@/components/StopwatchSlide.vue";
 import TimeSlide from "@/components/TimeSlide.vue";
-import Vue3TouchEvents from "vue3-touch-events";
+import { onMounted, onUnmounted, ref } from "vue";
 
 const slides = ref([]);
-let currentSlide = 0;
+const currentSlide = ref(0);
 const startX = ref(0);
 let isDragging = false;
 
 const updateTime = () => {
-  const now = new Date();
   slides.value = [TimeSlide, StopwatchSlide];
 };
 
@@ -185,16 +203,36 @@ const onMouseDown = (event) => {
   isDragging = true;
 };
 
+const onTouchStart = (event) => {
+  startX.value = event.touches[0].clientX;
+  isDragging = true;
+};
+
 const onMouseMove = (event) => {
   if (isDragging) {
     const movementX = event.clientX - startX.value;
     if (Math.abs(movementX) > 50) {
-      if (movementX > 0 && currentSlide > 0) {
-        currentSlide--;
-      } else if (movementX < 0 && currentSlide < slides.value.length - 1) {
-        currentSlide++;
+      if (movementX > 0 && currentSlide.value > 0) {
+        currentSlide.value--;
+      } else if (movementX < 0 && currentSlide.value < slides.value.length - 1) {
+        currentSlide.value++;
       }
       startX.value = event.clientX;
+    }
+  }
+};
+
+const onTouchMove = (event) => {
+  if (isDragging) {
+    const touch = event.touches[0];
+    const movementX = touch.clientX - startX.value;
+    if (Math.abs(movementX) > 50) {
+      if (movementX > 0 && currentSlide.value > 0) {
+        currentSlide.value--;
+      } else if (movementX < 0 && currentSlide.value < slides.value.length - 1) {
+        currentSlide.value++;
+      }
+      startX.value = touch.clientX;
     }
   }
 };
@@ -203,14 +241,20 @@ const onMouseUp = () => {
   isDragging = false;
 };
 
-updateTime();
-setInterval(updateTime, 1000);
-
 onMounted(() => {
   document.addEventListener("mousemove", onMouseMove);
+  document.addEventListener("touchmove", onTouchMove, { passive: false });
   document.addEventListener("mouseup", onMouseUp);
 });
 
+onUnmounted(() => {
+  document.removeEventListener("mousemove", onMouseMove);
+  document.removeEventListener("touchmove", onTouchMove);
+  document.removeEventListener("mouseup", onMouseUp);
+});
+
+updateTime();
+setInterval(updateTime, 1000);
 </script>
 
 <style scoped>
