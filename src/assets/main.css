@@ -1,3 +1,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "breeze_sans";
+  src: url("./breeze-sans-light.ttf") format("truetype");
+
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "breeze_sans";
+  src: url("./breeze-sans-regular.ttf") format("truetype");
+
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "breeze_sans";
+  src: url("./breeze-sans-medium.ttf") format("truetype");
+
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "breeze_sans";
+  src: url("./breeze-sans-bold.ttf") format("truetype");
+
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "breeze_sans";
+  src: url("./breeze-sans-thin.ttf") format("truetype");
+
+  font-weight: 100;
+  font-style: normal;
+}
+

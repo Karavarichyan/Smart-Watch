@@ -1,12 +1,18 @@
 module.exports = {
-  purge: [],
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-   darkMode: false, // or 'media' or 'class'
-   theme: {
-     extend: {},
-   },
-   variants: {
-     extend: {},
-   },
-   plugins: [],
- }
+  purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
+  darkMode: false,
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ["breeze_sans", "serif"],
+        // 'serif': ['YourFontName', 'serif'],
+        // 'mono': ['YourFontName', 'monospace'],
+        // Add more font families if needed
+      },
+    },
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+};
