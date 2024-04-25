@@ -10,39 +10,7 @@
     </div>
   </div>
 </template>
-<style scoped>
-.full-screen {
-  width: 100vw;
-  height: 100vh;
-}
 
-@media (max-width: 940px) {
-  .text-9xl {
-    font-size: 10vw;
-  }
-  .text-7xl {
-    font-size: 5vw;
-  }
-  .text-5xl {
-    font-size: 4vw;
-  }
-  .text-3xl {
-    font-size: 3vw;
-  }
-  .text-2xl {
-    font-size: 2vw;
-  }
-  .text-xl {
-    font-size: 1.5vw;
-  }
-  .text-lg {
-    font-size: 1.25vw;
-  }
-  .text-sm {
-    font-size: 1vw;
-  }
-}
-</style>
 
 
 
@@ -77,3 +45,38 @@ onMounted(() => {
   setInterval(updateTime, 1000);
 });
 </script>
+
+
+<style scoped>
+.full-screen {
+  width: 100vw;
+  height: 100vh;
+}
+
+@media (max-width: 940px) {
+  .text-9xl {
+    font-size: 10vw;
+  }
+  .text-7xl {
+    font-size: 5vw;
+  }
+  .text-5xl {
+    font-size: 4vw;
+  }
+  .text-3xl {
+    font-size: 3vw;
+  }
+  .text-2xl {
+    font-size: 2vw;
+  }
+  .text-xl {
+    font-size: 1.5vw;
+  }
+  .text-lg {
+    font-size: 1.25vw;
+  }
+  .text-sm {
+    font-size: 1vw;
+  }
+}
+</style>

@@ -137,6 +137,7 @@ setInterval(updateTime, 1000);
 .slide-leave-to {
   opacity: 0;
 }
+v-touch:swipe =" swipeHandler "
 </style> -->
 <template>
   <div class="full-screen bg-slate-950 flex items-center justify-center">
@@ -149,7 +150,7 @@ setInterval(updateTime, 1000);
           class="swiper-wrapper flex"
           :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
           :key="currentSlide"
-        >
+        > 
           <div
             v-for="(slide, index) in slides"
             :key="index"
@@ -164,9 +165,10 @@ setInterval(updateTime, 1000);
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import StopwatchSlide from "@/components/StopwatchSlide.vue";
 import TimeSlide from "@/components/TimeSlide.vue";
+import Vue3TouchEvents from "vue3-touch-events";
 
 const slides = ref([]);
 let currentSlide = 0;
@@ -204,9 +206,11 @@ const onMouseUp = () => {
 updateTime();
 setInterval(updateTime, 1000);
 
+onMounted(() => {
+  document.addEventListener("mousemove", onMouseMove);
+  document.addEventListener("mouseup", onMouseUp);
+});
 
-document.addEventListener("mousemove", onMouseMove);
-document.addEventListener("mouseup", onMouseUp);
 </script>
 
 <style scoped>

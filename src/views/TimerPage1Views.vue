@@ -243,13 +243,12 @@
    
 
    -->
-   <template>
-    <div>
-      <Timer :initialMinutes="1" />
-    </div>
-  </template>
-  
-  <script setup>
-  import Timer from "@/views/Timer.vue";
-  </script>
-  
+<template>
+  <div>
+    <Timer :initialMinutes="1" />
+  </div>
+</template>
+
+<script setup>
+import Timer from "@/views/Timer.vue";
+</script>

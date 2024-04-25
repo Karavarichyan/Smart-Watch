@@ -1,7 +1,6 @@
-
 <template>
   <div
-    class="full-screen font-sans bg-slate-950 text-white flex flex-col justify-center items-center font-sans"
+    class="full-screen bg-slate-950 text-white flex flex-col justify-center items-center font-sans"
   >
     <div class="flex space-x-4 md:space-x-4">
       <button @click="goToTimerPage(1)" class="button-style">
@@ -70,8 +69,6 @@ const goToTimerPage = (timerNumber) => {
 .button-style:hover {
   background-color: #2779bd;
 }
-
-
 
 .button-style:focus {
   outline: none;
