@@ -162,26 +162,27 @@ setInterval(updateTime, 1000);
       </transition>
     </div>
   </div> -->
-  <div class="flex h-screen w-full snap-x snap-mandatory overflow-hidden bg-slate-800" id="container" 
-  @mousedown="onMouseDown" 
-  @touchstart="onTouchStart">
-  <div class="h-screen w-screen shrink-0 snap-center bg-slate-800">
-    <transition name="slide" mode="out-in">
-      <div
-        class="swiper-wrapper flex"
-        :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
-        :key="currentSlide"
-      >
+  <div class="flex h-screen w-full snap-x snap-mandatory overflow-x-auto overflow-y-hidden bg-slate-500">
+    <div class="h-screen w-screen shrink-0 snap-center bg-slate-800">
+      <transition name="slide" mode="out-in">
         <div
-          v-for="(slide, index) in slides"
-          :key="index"
-          class="swiper-slide h-screen w-screen shrink-0 snap-center bg-slate-800">
-          <component :is="slide" />
+          v-touch:swipe="swipeHandler"
+          class="swiper-wrapper flex"
+          :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+          :key="currentSlide"
+        >
+          <div
+            v-for="(slide, index) in slides"
+            :key="index"
+            class="h-screen w-screen shrink-0 snap-center bg-slate-400">
+            <component :is="slide" />
+          </div>
         </div>
-      </div>
-    </transition>
+      </transition>
+    </div>
+    
+
   </div>
-</div>
 </template>
 
 <script setup>
