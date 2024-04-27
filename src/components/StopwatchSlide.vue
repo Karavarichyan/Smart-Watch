@@ -40,6 +40,7 @@ const goToTimerPage = (timerNumber) => {
   width: 100%;
   height: 100vh;
   display: flex;
+  flex-direction: column; 
   justify-content: center;
   align-items: center;
 }
@@ -73,5 +74,18 @@ const goToTimerPage = (timerNumber) => {
 .button-style:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+/* Медиа-запросы для мобильных устройств */
+@media (max-width: 640px) {
+  .button-style {
+    font-size: 6vw; /* увеличение размера кнопок для мобильных устройств */
+    width: 30vw; /* изменение ширины кнопок для мобильных устройств */
+    height: 30vw; /* изменение высоты кнопок для мобильных устройств */
+    min-width: unset;
+    min-height: unset;
+    max-width: unset;
+    max-height: unset;
+  }
 }
 </style>

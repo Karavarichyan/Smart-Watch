@@ -5,8 +5,8 @@
       <p class="text-9xl md:text-9xl sm:text-9xl xs:text-3xl min-h-max text-white">{{ minutes }}</p>
     </div>
     <div class="flex flex-col font-thin items-center ml-3">
-      <p class="text-2xl md:text-xl sm:text-lg xs:text-sm text-white">{{ dayOfWeek }}</p>
-      <p class="text-2xl md:text-xl sm:text-lg xs:text-sm text-white">{{ monthDay }}</p>
+      <p class="text-2xl md:text-x3 sm:text-lg xs:text-sm text-white">{{ dayOfWeek }}</p>
+      <p class="text-2xl md:text-x3 sm:text-lg xs:text-sm text-white">{{ monthDay }}</p>
     </div>
   </div>
 </template>
@@ -54,9 +54,7 @@ onMounted(() => {
 }
 
 @media (max-width: 940px) {
-  .text-9xl {
-    font-size: 10vw;
-  }
+ 
   .text-7xl {
     font-size: 5vw;
   }

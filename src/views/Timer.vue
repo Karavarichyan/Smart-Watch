@@ -28,6 +28,7 @@
               </div>
               <div class="pb-4">{{ timer.minutes }} min</div>
               <div class="timer-time pb-6 text-3xl">{{ formatTime(timer.time) }}</div>
+              
             </div>
   
             <div class="timer-controls flex p-3 justify-center">
@@ -101,7 +102,7 @@
   
   onMounted(() => {
     updateTime();
-    setInterval(updateTime, 1000);
+    setInterval(updateTime, 100);
   });
   
   const redirectToHomePage = () => {
@@ -151,14 +152,24 @@
   });
   
   const startTimer = (timer) => {
-    if (!timer.intervalId) {
-      const totalProgress = 1000;
-      timer.intervalId = setInterval(() => {
+  if (!timer.intervalId) {
+    const totalProgress = 1000;
+    timer.intervalId = setInterval(() => {
+      if (timer.time > 0) {
         timer.time--;
         timer.progress -= totalProgress;
-      }, totalProgress);
-    }
-  };
+      } else {
+        clearInterval(timer.intervalId);
+        timer.intervalId = null;
+      }
+    }, totalProgress);
+  } else {
+    clearInterval(timer.intervalId); // Отменяем предыдущий интервал
+    timer.intervalId = null;
+  }
+};
+
+
   
   const pauseTimer = (timer) => {
     clearInterval(timer.intervalId);
@@ -166,17 +177,22 @@
   };
   
   const resetTimer = (timer) => {
-    clearInterval(timer.intervalId);
-    timer.intervalId = null;
-    timer.time = timer.minutes * 60;
-    timer.progress = 0;
-    timer.isCountingDown = true;
-    startTimer(timer);
-  };
+  clearInterval(timer.intervalId);
+  timer.intervalId = null;
+  timer.time = timer.minutes * 60;
+  timer.progress = 0;
+  timer.isCountingDown = true;
+  startTimer(timer); // Запускаем новый таймер
+};
+
   
   const formatTime = (time) => {
-    return `${time}`;
-  };
+  const minutes = Math.floor(time / 60); // Получаем количество минут
+  const seconds = time % 60; // Получаем количество секунд
+  
+  // Форматируем строку для отображения времени
+  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+};
   
   const toggleTimer = (timer) => {
     if (timer.intervalId) {
