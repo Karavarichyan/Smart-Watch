@@ -198,18 +198,19 @@
   startTimer(timer); 
 };
 
-  
 const formatTime = (time) => {
-  const minutes = Math.floor(Math.abs(time) / 60); 
-  const seconds = Math.abs(time) % 60; 
-  
-  const formattedMinutes = minutes.toString().padStart(2, '0');
-  const formattedSeconds = seconds.toString().padStart(2, '0');
-  
-  const sign = time < 0 ? '-' : ''; 
-  
-  return `${sign}${formattedMinutes}:${formattedSeconds}`;
+  const minutes = Math.floor(Math.abs(time) / 60);
+  const seconds = Math.abs(time) % 60;
+
+  if (minutes === 0) {
+    return `${seconds}`;
+  } else {
+    const formattedMinutes = (time >= 0 ? minutes : -minutes).toString();
+    const formattedSeconds = seconds.toString().padStart(2, '0');
+    return `${formattedMinutes}:${formattedSeconds}`;
+  }
 };
+
   
   const toggleTimer = (timer) => {
     if (timer.intervalId) {
