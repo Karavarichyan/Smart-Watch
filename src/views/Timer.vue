@@ -164,7 +164,7 @@
       }
     }, totalProgress);
   } else {
-    clearInterval(timer.intervalId); // Отменяем предыдущий интервал
+    clearInterval(timer.intervalId); 
     timer.intervalId = null;
   }
 };
@@ -182,15 +182,15 @@
   timer.time = timer.minutes * 60;
   timer.progress = 0;
   timer.isCountingDown = true;
-  startTimer(timer); // Запускаем новый таймер
+  startTimer(timer); 
 };
 
   
   const formatTime = (time) => {
-  const minutes = Math.floor(time / 60); // Получаем количество минут
-  const seconds = time % 60; // Получаем количество секунд
+  const minutes = Math.floor(time / 60); 
+  const seconds = time % 60; 
   
-  // Форматируем строку для отображения времени
+ 
   return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 };
   

@@ -65,7 +65,7 @@ onMounted(() => {
     font-size: 3vw;
   }
   .text-2xl {
-    font-size: 2vw;
+    font-size: 5vw;
   }
   .text-xl {
     font-size: 1.5vw;
