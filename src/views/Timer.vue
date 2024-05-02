@@ -1,76 +1,77 @@
 <template>
-    <div class="bg-slate-600 h-screen flex items-center justify-center font-sans">
-      <div class="timers-container bg-slate-950 flex justify-center">
-        <div
-          v-for="timer in timers"
-          :key="timer.id"
-          class="timer-container rounded-full p-4 relative"
-          @click="toggleTimer(timer)"
-        >
-          <svg class="progress-ring" :viewBox="`0 0 ${timer.size} ${timer.size}`" :width="isMobile ? 100 : timer.size" :height="isMobile ? 100 : timer.size">
-            <circle
-              class="progress-ring-circle"
-              :stroke-dasharray="timer.circumference"
-              :stroke-dashoffset="timer.time <= 0 ? timer.circumference : blueLineProgress"
-              :r="timer.radius"
-              :cx="timer.size / 2"
-              :cy="timer.size / 2"
-              :stroke="timer.isCompleted ? '#808080' : '#007bff'"
-              :stroke-width="isMobile ? 15 : 10"
-            />
-          </svg>
-  
-          <div class="timer-content flex flex-col items-center justify-center text-white">
-            <div class="current-time font-bold">
-              <p class="  pb-8">{{ hours }} : {{ minutes }}</p>
-              <div class="pb-2" v-if="timer.time <= 0">
-                <PhHourglassLow :size="isMobile ? 16 : 32" color="#f2eeee" />
-              </div>
-              <div class="pb-4">{{ timer.minutes }} min</div>
-              <div class="timer-time pb-6 text-3xl">{{ formatTime(timer.time) }}</div>
-              
-            </div>
-  
-            <div class="timer-controls flex p-3 justify-center">
-              <button
-                @click="redirectToHomePage(timer)"
-                class="button-style rounded-full p-1 w-8 h-8 justify-center mr-16"
-                :class="{
-                  'bg-slate-800': timer.time > 0,
-                  'bg-red-500': timer.time <= 0,
-                  'cursor-not-allowed': timer.time <= 0,
-                }"
-              >
-                <PhX :size="isMobile ? 12 : 18" class="h-6 w-6" :color="timer.time > 0 ? '#f2eeee' : '#808080'" />
-              </button>
-  
-              <button
-                class="button-style rounded-full p-1 w-8 h-8 justify-center mr-2"
-                :class="{
-                  'bg-red-500': timer.intervalId,
-                  'bg-sky-700': !timer.intervalId,
-                }"
-                v-if="timer.time > 0 && !timer.isCompleted"
-                @click.stop="toggleTimer(timer)"
-              >
-                <PhPause :size="isMobile ? 12 : 18" v-if="timer.intervalId" />
-                <PhPlay :size="isMobile ? 12 : 18" v-else />
-              </button>
-  
-              <PhArrowCounterClockwise
-                :size="isMobile ? 12 : 18"
-                color="#f2eeee"
-                v-if="timer.isCompleted || timer.time <= 0"
-                @click.stop="resetTimer(timer)"
-                class="button-style rounded-full p-1 w-8 h-8 justify-center"
-                :class="{ 'bg-neutral-500': timer.intervalId, 'bg-sky-700': !timer.intervalId }"
-              />
-            </div>
+  <div class="timers-container h-screen w-full bg-slate-950 flex justify-center font-sans">
+    <div
+      v-for="timer in timers"
+      :key="timer.id"
+      class="progress-ring-container"
+      @click="toggleTimer(timer)"
+    >
+      <svg
+        class="progress-ring"
+        :viewBox="`0 0 ${timer.size} ${timer.size}`"
+        :width="180"
+        :height="180"
+      >
+        <circle
+          class="progress-ring-circle"
+          :stroke-dasharray="timer.circumference"
+          :stroke-dashoffset="timer.time <= 0 ? timer.circumference : blueLineProgress"
+          :r="timer.radius"
+          :cx="timer.size / 2"
+          :cy="timer.size / 2"
+          :stroke="timer.isCompleted ? '#808080' : '#007bff'"
+          :stroke-width="15"
+        />
+      </svg>
+
+      <div class="timer-content flex flex-col items-center justify-center text-white">
+        <div class="current-time font-bold">
+          <p class="pb-4">{{ formatTime(timer.time) }}</p>
+          <div class="pb-2" v-if="timer.time <= 0">
+            <PhHourglassLow :size="16" color="#f2eeee" />
           </div>
+          <div class="pb-2">{{ timer.minutes }} min</div>
+        </div>
+
+        <div class="timer-controls flex p-3 justify-center">
+          <button
+            @click="redirectToHomePage(timer)"
+            class="button-style rounded-full p-1 w-8 h-8 justify-center mr-2"
+            :class="{
+              'bg-slate-800': timer.time > 0,
+              'bg-red-500': timer.time <= 0,
+              'cursor-not-allowed': timer.time <= 0,
+            }"
+          >
+            <PhX :size="12" class="h-6 w-6" :color="timer.time > 0 ? '#f2eeee' : '#808080'" />
+          </button>
+
+          <button
+            class="button-style rounded-full p-1 w-8 h-8 justify-center mr-2"
+            :class="{
+              'bg-red-500': timer.intervalId,
+              'bg-sky-700': !timer.intervalId,
+            }"
+            v-if="timer.time > 0 && !timer.isCompleted"
+            @click.stop="toggleTimer(timer)"
+          >
+            <PhPause :size="12" v-if="timer.intervalId" />
+            <PhPlay :size="12" v-else />
+          </button>
+
+          <PhArrowCounterClockwise
+            :size="12"
+            color="#f2eeee"
+            v-if="timer.isCompleted || timer.time <= 0"
+            @click.stop="resetTimer(timer)"
+            class="button-style rounded-full p-1 w-8 h-8 justify-center"
+            :class="{ 'bg-neutral-500': timer.intervalId, 'bg-sky-700': !timer.intervalId }"
+          />
         </div>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <script setup>
   import { ref, onMounted, computed, watch, defineProps } from "vue";
@@ -161,13 +162,25 @@
       } else {
         clearInterval(timer.intervalId);
         timer.intervalId = null;
+        timer.isCompleted = true;
+        
+        let negativeTime = 1;
+        timer.intervalId = setInterval(() => {
+          timer.time = -negativeTime;
+          negativeTime++;
+          
+          const formattedTime = formatTime(-timer.time);
+          hours.value = formattedTime.split(':')[0];
+          minutes.value = formattedTime.split(':')[1];
+        }, totalProgress);
       }
     }, totalProgress);
   } else {
-    clearInterval(timer.intervalId); 
+    clearInterval(timer.intervalId);
     timer.intervalId = null;
   }
 };
+
 
 
   
@@ -186,12 +199,16 @@
 };
 
   
-  const formatTime = (time) => {
-  const minutes = Math.floor(time / 60); 
-  const seconds = time % 60; 
+const formatTime = (time) => {
+  const minutes = Math.floor(Math.abs(time) / 60); 
+  const seconds = Math.abs(time) % 60; 
   
- 
-  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  const formattedMinutes = minutes.toString().padStart(2, '0');
+  const formattedSeconds = seconds.toString().padStart(2, '0');
+  
+  const sign = time < 0 ? '-' : ''; 
+  
+  return `${sign}${formattedMinutes}:${formattedSeconds}`;
 };
   
   const toggleTimer = (timer) => {
@@ -218,7 +235,6 @@
     });
   });
   </script>
-  
   <style>
   .full-screen {
     width: 100%;
@@ -231,11 +247,7 @@
   .progress-ring {
     transform: rotate(-90deg);
   }
-  .progress-ring-circle {
-    fill: transparent;
-    stroke: #007bff;
-    stroke-width: 10; 
-  }
+  
   .timer-content {
     position: absolute;
     top: 50%;
@@ -252,13 +264,30 @@
     justify-content: center;
   }
   
+  .progress-ring-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .progress-ring {
+    transform: rotate(-90deg);
+  }
+  
+  .progress-ring-circle {
+    fill: transparent;
+    stroke: #007bff;
+    stroke-width: 10;
+  }
+  
   @media (max-width: 768px) {
     .progress-ring-circle {
       stroke-width: 15;
     }
     .button-style {
-      font-size: 14px; 
+      font-size: 14px;
     }
   }
   </style>
-  
