@@ -9,8 +9,8 @@
       <svg
         class="progress-ring"
         :viewBox="`0 0 ${timer.size} ${timer.size}`"
-        :width="180"
-        :height="180"
+        :width="380"
+        :height="380"
       >
         <circle
           class="progress-ring-circle"
@@ -55,7 +55,7 @@
             v-if="timer.time > 0 && !timer.isCompleted"
             @click.stop="toggleTimer(timer)"
           >
-            <PhPause :size="12" v-if="timer.intervalId" />
+            <PhPause :size="12" v-if="timer.intervalId"  />
             <PhPlay :size="12" v-else />
           </button>
 
@@ -283,11 +283,14 @@ const formatTime = (time) => {
   }
   
   @media (max-width: 768px) {
-    .progress-ring-circle {
-      stroke-width: 15;
+    .progress-ring-container {
+      width: 100%;
     }
-    .button-style {
-      font-size: 14px;
+  
+    .timer-content {
+      padding: 20px;
     }
+  
+   
   }
   </style>
