@@ -9,6 +9,8 @@
       <p class="text-2xl md:text-x3 sm:text-lg xs:text-sm text-white">{{ monthDay }}</p>
     </div>
   </div>
+  <button @click="download" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">Download</button>
+
 </template>
 
 

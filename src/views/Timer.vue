@@ -26,11 +26,16 @@
 
       <div class="timer-content flex flex-col items-center justify-center text-white">
         <div class="current-time font-bold">
+          <div id="current-time" class="font-bold">
+            {{ hours }}:{{ minutes }}
+          </div>
+
+          <div class="pb-2">{{ timer.minutes }} min</div>
           <p class="pb-4">{{ formatTime(timer.time) }}</p>
           <div class="pb-2" v-if="timer.time <= 0">
             <PhHourglassLow :size="16" color="#f2eeee" />
           </div>
-          <div class="pb-2">{{ timer.minutes }} min</div>
+         
         </div>
 
         <div class="timer-controls flex p-3 justify-center">
