@@ -43,11 +43,11 @@
               'cursor-not-allowed': timer.time <= 0,
             }"
           >
-            <PhX :size="12" class="h-6 w-6" :color="timer.time > 0 ? '#f2eeee' : '#808080'" />
+            <PhX :size="12" class="h-6 w-6 " :color="timer.time > 0 ? '#f2eeee' : '#808080'" />
           </button>
 
           <button
-            class="button-style rounded-full p-1 w-8 h-8 justify-center mr-2"
+            class="button-style rounded-full p-1 w-8 h-8 justify-center mr-4"
             :class="{
               'bg-red-500': timer.intervalId,
               'bg-sky-700': !timer.intervalId,
@@ -55,7 +55,7 @@
             v-if="timer.time > 0 && !timer.isCompleted"
             @click.stop="toggleTimer(timer)"
           >
-            <PhPause :size="12" v-if="timer.intervalId"  />
+            <PhPause :size="12" v-if="timer.intervalId"   />
             <PhPlay :size="12" v-else />
           </button>
 
@@ -290,8 +290,9 @@ const formatTime = (time) => {
     .timer-content {
       padding: 20px;
     }
-    .timer-controls button {
-      margin-top: 90px;
+    
+    .timer-controls  {
+     
       margin: 40px; 
     }
    
