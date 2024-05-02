@@ -290,7 +290,10 @@ const formatTime = (time) => {
     .timer-content {
       padding: 20px;
     }
-  
+    .timer-controls button {
+      margin-top: 90px;
+      margin: 40px; 
+    }
    
   }
   </style>
