@@ -76,12 +76,12 @@ const goToTimerPage = (timerNumber) => {
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
 }
 
-/* Медиа-запросы для мобильных устройств */
+
 @media (max-width: 640px) {
   .button-style {
-    font-size: 6vw; /* увеличение размера кнопок для мобильных устройств */
-    width: 30vw; /* изменение ширины кнопок для мобильных устройств */
-    height: 30vw; /* изменение высоты кнопок для мобильных устройств */
+    font-size: 6vw; 
+    width: 30vw; 
+    height: 30vw; 
     min-width: unset;
     min-height: unset;
     max-width: unset;

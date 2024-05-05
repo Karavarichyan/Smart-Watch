@@ -100,21 +100,14 @@
   const minutes = ref("");
   const router = useRouter();
   
-  const updateTime = () => {
-    const now = new Date();
-    hours.value = String(now.getHours()).padStart(2, "0");
-    minutes.value = String(now.getMinutes()).padStart(2, "0");
-  };
+ 
   
   onMounted(() => {
     updateTime();
     setInterval(updateTime, 100);
   });
   
-  const redirectToHomePage = () => {
-    router.push("/");
-  };
-  
+ 
 
  
   const props = defineProps({
@@ -141,6 +134,23 @@
     },
   ]);
   
+  const updateTime = () => {
+    const now = new Date();
+    hours.value = String(now.getHours()).padStart(2, "0");
+    minutes.value = String(now.getMinutes()).padStart(2, "0");
+  };
+  
+  onMounted(() => {
+    updateTime();
+    setInterval(updateTime, 1000);
+  });
+  
+  const redirectToHomePage = () => {
+    router.push("/");
+  };
+  
+
+  
   window.addEventListener("resize", () => {
     const newSize = Math.min(window.innerWidth, window.innerHeight) * 0.6;
     timers.value[0].size = newSize;
@@ -158,36 +168,14 @@
   });
   
   const startTimer = (timer) => {
-  if (!timer.intervalId) {
-    const totalProgress = 1000;
-    timer.intervalId = setInterval(() => {
-      if (timer.time > 0) {
+    if (!timer.intervalId) {
+      const totalProgress = 1000;
+      timer.intervalId = setInterval(() => {
         timer.time--;
         timer.progress -= totalProgress;
-      } else {
-        clearInterval(timer.intervalId);
-        timer.intervalId = null;
-        timer.isCompleted = true;
-        
-        let negativeTime = 1;
-        timer.intervalId = setInterval(() => {
-          timer.time = -negativeTime;
-          negativeTime++;
-          
-          const formattedTime = formatTime(-timer.time);
-          hours.value = formattedTime.split(':')[0];
-          minutes.value = formattedTime.split(':')[1];
-        }, totalProgress);
-      }
-    }, totalProgress);
-  } else {
-    clearInterval(timer.intervalId);
-    timer.intervalId = null;
-  }
-};
-
-
-
+      }, totalProgress);
+    }
+  };
   
   const pauseTimer = (timer) => {
     clearInterval(timer.intervalId);
@@ -195,27 +183,17 @@
   };
   
   const resetTimer = (timer) => {
-  clearInterval(timer.intervalId);
-  timer.intervalId = null;
-  timer.time = timer.minutes * 60;
-  timer.progress = 0;
-  timer.isCountingDown = true;
-  startTimer(timer); 
-};
-
-const formatTime = (time) => {
-  const minutes = Math.floor(Math.abs(time) / 60);
-  const seconds = Math.abs(time) % 60;
-
-  if (minutes === 0) {
-    return `${seconds}`;
-  } else {
-    const formattedMinutes = (time >= 0 ? minutes : -minutes).toString();
-    const formattedSeconds = seconds.toString().padStart(2, '0');
-    return `${formattedMinutes}:${formattedSeconds}`;
-  }
-};
-
+    clearInterval(timer.intervalId);
+    timer.intervalId = null;
+    timer.time = timer.minutes * 60;
+    timer.progress = 0;
+    timer.isCountingDown = true;
+    startTimer(timer);
+  };
+  
+  const formatTime = (time) => {
+    return `${time}`;
+  };
   
   const toggleTimer = (timer) => {
     if (timer.intervalId) {
@@ -287,6 +265,7 @@ const formatTime = (time) => {
     stroke: #007bff;
     stroke-width: 10;
   }
+  
   
   @media (max-width: 768px) {
     .progress-ring-container {
