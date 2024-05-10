@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+body {
+  background-color: peachpuff;
+}
 @font-face {
   font-family: "breeze_sans";
   src: url("./breeze-sans-light.ttf") format("truetype");

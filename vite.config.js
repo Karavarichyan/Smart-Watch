@@ -10,8 +10,9 @@ export default defineConfig({
     vue(),
     VueDevTools(),
     VitePWA({
+      mode: "development",
       registerType: "autoUpdate",
-      manifest: { name: "test", short_name: "test" },
+      // manifest: { name: "test", short_name: "test" },
     }),
   ],
   resolve: {

@@ -135,10 +135,7 @@ setInterval(updateTime, 1000);
 .slide-leave-to {
   opacity: 0;
 }
-
-</style> -->
-<template>
-  <!-- <div class="full-screen bg-slate-950 flex snap-x snap-mandatory overflow-x-auto overflow-y-hidden items-center justify-center">
+ <!-- <div class="full-screen bg-slate-950 flex snap-x snap-mandatory overflow-x-auto overflow-y-hidden items-center justify-center">
     <div
       class="swiper-container overflow-hidden shrink-0 cursor-pointer flex items-center justify-center"
       @mousedown="onMouseDown"
@@ -161,12 +158,120 @@ setInterval(updateTime, 1000);
         </div>
       </transition>
     </div>
-  </div> -->
-  <div class="flex h-screen w-full snap-x snap-mandatory overflow-x-auto overflow-y-hidden bg-slate-500">
+  </div> 
+
+<template>
+  <div
+    class="flex h-screen w-full snap-x snap-mandatory overflow-x-hidden overflow-y-hidden bg-slate-500"
+    @mousedown="onMouseDown"
+    @mouseup="onMouseUp"
+    @mousemove="onMouseMove"
+    @touchstart="onTouchStart"
+    @touchmove="onTouchMove"
+    @touchend="onTouchEnd"
+  >
     <div class="h-screen w-screen shrink-0 snap-center bg-slate-800">
       <transition name="slide" mode="out-in">
         <div
           v-touch:swipe="swipeHandler"
+          class="swiper-wrapper flex"
+          :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+          :key="currentSlide"
+        >
+          <div
+            v-for="(slide, index) in slides"
+            :key="index"
+            class="h-screen w-screen shrink-0 snap-center bg-slate-400"
+          >
+            <component :is="slide" />
+          </div>
+        </div>
+      </transition>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import StopwatchSlide from "@/components/StopwatchSlide.vue";
+import TimeSlide from "@/components/TimeSlide.vue";
+import { onMounted, onUnmounted, ref } from "vue";
+
+const slides = ref([]);
+const currentSlide = ref(0);
+const startX = ref(0);
+let isDragging = false;
+
+const updateTime = () => {
+  slides.value = [TimeSlide, StopwatchSlide];
+};
+
+const onMouseDown = (event) => {
+  startX.value = event.clientX;
+  isDragging = true;
+};
+
+const onMouseMove = (event) => {
+  if (isDragging) {
+    const movementX = event.clientX - startX.value;
+    if (Math.abs(movementX) > 50) {
+      if (movementX > 0 && currentSlide.value > 0) {
+        currentSlide.value--;
+      } else if (movementX < 0 && currentSlide.value < slides.value.length - 1) {
+        currentSlide.value++;
+      }
+      startX.value = event.clientX;
+    }
+  }
+};
+
+const onMouseUp = () => {
+  isDragging = false;
+};
+
+const onTouchStart = (event) => {
+  startX.value = event.touches[0].clientX;
+  isDragging = true;
+};
+
+const onTouchMove = (event) => {
+  if (isDragging) {
+    const touch = event.touches[0];
+    const movementX = touch.clientX - startX.value;
+    if (Math.abs(movementX) > 50) {
+      if (movementX > 0 && currentSlide.value > 0) {
+        currentSlide.value--;
+      } else if (movementX < 0 && currentSlide.value < slides.value.length - 1) {
+        currentSlide.value++;
+      }
+      startX.value = touch.clientX;
+    }
+  }
+};
+
+const onTouchEnd = () => {
+  isDragging = false;
+};
+
+onMounted(() => {
+  updateTime();
+  setInterval(updateTime, 1000);
+});
+
+onUnmounted(() => {
+  clearInterval(updateTime);
+});
+
+</script>
+
+
+</style> -->
+<template>
+  
+  <div class="flex h-screen w-full snap-x snap-mandatory overflow-x-auto overflow-y-hidden bg-slate-500">
+    <div class="h-screen w-screen shrink-0 snap-center bg-slate-800">
+      <transition name="slide" mode="out-in">
+        <div
+          
           class="swiper-wrapper flex"
           :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
           :key="currentSlide"

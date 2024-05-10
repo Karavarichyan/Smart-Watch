@@ -10,42 +10,19 @@
     "test": "jest"
   },
   "dependencies": {
-    "@capacitor/android": "6.0.0",
-    "@capacitor/ios": "6.0.0",
     "@phosphor-icons/vue": "2.2.1",
-    "npm-watch": "0.12.0",
     "pinia": "^2.1.7",
-    "register-service-worker": "1.7.2",
     "vue": "3.4.26",
-    "vue-router": "4.3.2",
-    "vue3-touch-events": "4.1.8"
+    "vue-router": "4.3.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "5.0.4",
-    "@vue/cli-plugin-pwa": "~5.0.0",
-    "@vue/cli-plugin-unit-jest": "~5.0.0",
-<<<<<<< HEAD
-    "@vue/test-utils": "^2.4.5",
-    "@vue/vue3-jest": "^27.0.0-alpha.1",
     "autoprefixer": "^10.4.18",
     "postcss": "^8.4.37",
     "tailwindcss": "^3.4.1",
     "vite": "^5.1.6",
     "vite-plugin-pwa": "^0.20.0",
-    "vite-plugin-vue-devtools": "^7.0.18",
-    "vitest": "^1.4.0"
-=======
-    "@vue/test-utils": "2.4.0-alpha.2",
-    "autoprefixer": "10.4.18",
-    "babel-jest": "27.0.6",
-    "jsdom": "24.0.0",
-    "postcss": "8.4.37",
-    "tailwindcss": "3.4.1",
-    "vite": "5.2.11",
-    "vite-plugin-pwa": "0.20.0",
-    "vite-plugin-vue-devtools": "7.0.18",
-    "vitest": "1.4.0"
->>>>>>> 4b541df1b14f6af6e9b2f4e98da69d37b45a72e9
+    "vite-plugin-vue-devtools": "^7.0.18"
   },
   "type": "module"
 }
