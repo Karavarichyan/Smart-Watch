@@ -266,27 +266,26 @@ onUnmounted(() => {
 
 </style> -->
 <template>
-  
-  <div class="flex h-screen w-full snap-x snap-mandatory overflow-x-auto overflow-y-hidden bg-slate-500">
+  <div
+    class="flex h-screen w-full snap-x snap-mandatory overflow-x-auto overflow-y-hidden bg-slate-500"
+  >
     <div class="h-screen w-screen shrink-0 snap-center bg-slate-800">
       <transition name="slide" mode="out-in">
         <div
-          
           class="swiper-wrapper flex"
           :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
           :key="currentSlide"
         >
           <div
-            v-for="(slide, index) in slides"
+            v-for="(slide, index) in SLIDES"
             :key="index"
-            class="h-screen w-screen shrink-0 snap-center bg-slate-400">
+            class="h-screen w-screen shrink-0 snap-center bg-slate-400"
+          >
             <component :is="slide" />
           </div>
         </div>
       </transition>
     </div>
-    
-
   </div>
 </template>
 
@@ -295,14 +294,11 @@ import StopwatchSlide from "@/components/StopwatchSlide.vue";
 import TimeSlide from "@/components/TimeSlide.vue";
 import { onMounted, onUnmounted, ref } from "vue";
 
-const slides = ref([]);
+const SLIDES = [TimeSlide, StopwatchSlide];
+
 const currentSlide = ref(0);
 const startX = ref(0);
 let isDragging = false;
-
-const updateTime = () => {
-  slides.value = [TimeSlide, StopwatchSlide];
-};
 
 const onMouseDown = (event) => {
   startX.value = event.clientX;
@@ -320,7 +316,10 @@ const onMouseMove = (event) => {
     if (Math.abs(movementX) > 50) {
       if (movementX > 0 && currentSlide.value > 0) {
         currentSlide.value--;
-      } else if (movementX < 0 && currentSlide.value < slides.value.length - 1) {
+      } else if (
+        movementX < 0 &&
+        currentSlide.value < SLIDES.value.length - 1
+      ) {
         currentSlide.value++;
       }
       startX.value = event.clientX;
@@ -335,7 +334,10 @@ const onTouchMove = (event) => {
     if (Math.abs(movementX) > 50) {
       if (movementX > 0 && currentSlide.value > 0) {
         currentSlide.value--;
-      } else if (movementX < 0 && currentSlide.value < slides.value.length - 1) {
+      } else if (
+        movementX < 0 &&
+        currentSlide.value < SLIDES.value.length - 1
+      ) {
         currentSlide.value++;
       }
       startX.value = touch.clientX;
@@ -358,9 +360,6 @@ onUnmounted(() => {
   document.removeEventListener("touchmove", onTouchMove);
   document.removeEventListener("mouseup", onMouseUp);
 });
-
-updateTime();
-setInterval(updateTime, 1000);
 </script>
 
 <style scoped>
