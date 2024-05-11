@@ -265,7 +265,7 @@ onUnmounted(() => {
 
 
 </style> -->
-<template>
+<!-- <template>
   <div
     class="flex h-screen w-full snap-x snap-mandatory overflow-x-auto overflow-y-hidden bg-slate-500"
   >
@@ -305,10 +305,7 @@ const onMouseDown = (event) => {
   isDragging = true;
 };
 
-const onTouchStart = (event) => {
-  startX.value = event.touches[0].clientX;
-  isDragging = true;
-};
+
 
 const onMouseMove = (event) => {
   if (isDragging) {
@@ -379,6 +376,148 @@ onUnmounted(() => {
 .slide-enter-active,
 .slide-leave-active {
   transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.slide-enter,
+.slide-leave-to {
+  opacity: 0;
+}
+</style> -->
+
+<template>
+  <div
+    class="flex h-screen w-full snap-x snap-mandatory overflow-x-auto overflow-y-hidden bg-slate-500"
+  >
+    <div class="h-screen w-screen shrink-0 snap-center bg-slate-800">
+      <transition name="slide" mode="out-in">
+        <div
+          class="swiper-wrapper flex"
+          :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+          @mousedown="onMouseDown"
+          @touchstart="onTouchStart"
+        >
+          <div
+            v-for="(slide, index) in SLIDES"
+            :key="index"
+            class="h-screen w-screen shrink-0 snap-center bg-slate-400"
+          >
+            <component :is="slide" />
+          </div>
+        </div>
+      </transition>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import StopwatchSlide from "@/components/StopwatchSlide.vue";
+import TimeSlide from "@/components/TimeSlide.vue";
+import { onMounted, onUnmounted, ref } from "vue";
+
+const SLIDES = [TimeSlide, StopwatchSlide];
+
+const currentSlide = ref(0);
+const startX = ref(0);
+let isDragging = false;
+
+const onMouseDown = (event) => {
+  startX.value = event.clientX;
+  isDragging = true;
+};
+
+const onTouchStart = (event) => {
+  const touch = event.touches[0];
+  startX.value = touch.clientX;
+  isDragging = true;
+};
+
+const onMouseMove = (event) => {
+  if (isDragging) {
+    const movementX = event.clientX - startX.value;
+    const threshold = 50; 
+    if (Math.abs(movementX) > threshold) {
+      if (movementX > 0 && currentSlide.value > 0) {
+        currentSlide.value--;
+      } else if (movementX < 0 && currentSlide.value < SLIDES.length - 1) {
+        currentSlide.value++;
+      }
+      startX.value = event.clientX;
+    }
+  }
+};
+
+const onTouchMove = (event) => {
+  if (isDragging) {
+    const touch = event.touches[0];
+    const movementX = touch.clientX - startX.value;
+    const threshold = 50; 
+    if (Math.abs(movementX) > threshold) {
+      if (movementX > 0 && currentSlide.value > 0) {
+        currentSlide.value--;
+      } else if (movementX < 0 && currentSlide.value < SLIDES.length - 1) {
+        currentSlide.value++;
+      }
+      startX.value = touch.clientX;
+    }
+  }
+};
+
+const onMouseUp = () => {
+  isDragging = false;
+};
+
+const onTouchEnd = () => {
+  isDragging = false;
+};
+
+onMounted(() => {
+  document.addEventListener("mousemove", onMouseMove);
+  document.addEventListener("touchmove", onTouchMove);
+  document.addEventListener("mouseup", onMouseUp);
+  document.addEventListener("touchend", onTouchEnd);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("mousemove", onMouseMove);
+  document.removeEventListener("touchmove", onTouchMove);
+  document.removeEventListener("mouseup", onMouseUp);
+  document.removeEventListener("touchend", onTouchEnd);
+});
+</script>
+
+<style scoped>
+.swiper-container {
+  transition: transform 0.5s ease-in-out;
+}
+
+.swiper-wrapper {
+  transition: transform 0.5s ease-in-out;
+}
+
+.swiper-slide {
+  flex: 0 0 100%;
+  width: 100%;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+
+
+.swiper-container {
+  overflow-x: hidden; 
+}
+
+.swiper-container {
+  width: 800px;  
+  height: 400px; 
+  overflow-x: hidden; 
+}
+.swiper-slide {
+  width: 100%;
+  object-fit: cover; 
 }
 
 .slide-enter,
