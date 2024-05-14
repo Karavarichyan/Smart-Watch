@@ -1,37 +1,37 @@
 {"name":"MyWatch","short_name":"test","start_url":"/","display":"standalone",
 "icons": [
     {
-      "src": "/path/iAppsclockicon.png",
+      "src": "/public/iAppsclockicon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/path/iAppsclockicon.png",
+      "src": "/public/iAppsclockicon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/path/timericon.png",
+      "src": "/public/timericon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/path/timericon.png",
+      "src": "/public/timericon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/path/artage-io-144.png",
+      "src": "/public/artage-io-144.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/path/artage-io-144.png",
+      "src": "/public/artage-io-144.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "maskable"
