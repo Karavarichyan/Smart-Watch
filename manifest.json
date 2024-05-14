@@ -1,37 +1,37 @@
 {"name":"MyWatch","short_name":"test","start_url":"/","display":"standalone",
 "icons": [
     {
-      "src": "/public/iAppsclockicon.png",
-      "sizes": "192x192",
+      "src": "/public/Time256.png",
+      "sizes": "256x256",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/public/iAppsclockicon.png",
-      "sizes": "192x192",
+      "src": "/public/Time256.png",
+      "sizes": "256x256",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/public/timericon.png",
+      "src": "/public/android-chrome-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/public/timericon.png",
+      "src": "/public/android-chrome-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/public/artage-io-144.png",
+      "src": "/public/4l.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/public/artage-io-144.png",
+      "src": "/public/4l.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "maskable"
