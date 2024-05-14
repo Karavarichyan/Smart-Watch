@@ -1,5 +1,9 @@
-{"name":"MyWatch","short_name":"test","start_url":"/","display":"standalone",
-"icons": [
+{
+  "name": "MyWatch",
+  "short_name": "test",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
     {
       "src": "/Time256.png",
       "sizes": "256x256",
@@ -36,9 +40,9 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-   
   ],
   "background_color": "#0000FF",
-  "theme_color": "#00308F", 
+  "theme_color": "#00308F",
   "lang": "en",
-  "scope": "/"}
+  "scope": "/"
+}
